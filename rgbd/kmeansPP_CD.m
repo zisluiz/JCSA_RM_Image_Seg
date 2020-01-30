@@ -21,8 +21,12 @@ end
 
 L = [];
 L1 = 0;
+countIterLoop = 0;
 
 while length(unique(L)) ~= k
+    if countIterLoop > 400
+        break
+    end
     
     C = X(:,1+round(rand*(size(X,2)-1)));
     L = ones(1,size(X,2));
@@ -53,10 +57,15 @@ while length(unique(L)) ~= k
         
         [~,L] = max((C'*X).^2);
         
+        %display(strcat('inside loop kmeansPP_CD, iter=', num2str(numIter)));
+        
         numIter = numIter + 1;
         if(numIter>maxNum)
             break;
         end
     end
     
+    countIterLoop = countIterLoop + 1;
 end
+
+display(strcat('inside loop kmeansPP_CD, countIter=', num2str(countIterLoop)));

@@ -37,6 +37,8 @@ for i=1:k
     mu(i,spatialIndx) = muT;
 end
 
+display('Entered on kmeans_color, before kmeansPP_CD');
+
 % For structural features (Image Normal)
 % K-means++
 [label,~] = kmeansPP_CD(vectors(:, normalIndx)', k);

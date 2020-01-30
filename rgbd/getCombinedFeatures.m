@@ -12,7 +12,8 @@ featVecLab = normalizeandscale(double(reshape(colinfosc, r*c, d)));
 
 % Feature: 3D points
 % Convert to 3D points
-[info3D, ~] = DepthtoCloud(allInfoSI.depImg);
+%[info3D, ~] = DepthtoCloud(allInfoSI.depImg);
+info3D = allInfoSI.pcloud;
 info3Dsc = info3D(1:scD:end, 1:scD:end, :);
 [r,c,d] = size(info3Dsc);
 featVec3D = normalizeandscale(reshape(info3Dsc, r*c, d));

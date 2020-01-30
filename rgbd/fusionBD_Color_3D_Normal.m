@@ -1,5 +1,5 @@
 function clust = fusionBD_Color_3D_Normal(vectors, k, wt, opt)
-
+clear iterations LLH logLikelihoodOld logLikelihoodNew diffLLH;
 [D,~] = size(vectors);
 
 % Basic information
@@ -157,7 +157,7 @@ while(iterations<MAX_ITERATIONS && diffLLH>logLikelihoodThreshold)
     %     end
     
     logLikelihoodNew = getJointLLH_Color_3D_Normal(alpha, ColorInfo, DepthInfo, NormalInfo);
-    LLH(iterations) = -logLikelihoodNew; % negative log likelihood
+    %LLH(iterations) = -logLikelihoodNew; % negative log likelihood
     
     diffLLH = abs(logLikelihoodOld - logLikelihoodNew);
     iterations = iterations+1;
