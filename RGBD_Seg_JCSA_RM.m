@@ -135,6 +135,8 @@ allInfo = handles.allInfo;
 szh(1) = uint16(size(handles.rgbImg(1:sc:end,1:sc:end,:),1));
 szh(2) = uint16(size(handles.rgbImg(1:sc:end,1:sc:end,:),2));
 
+allInfo.pcloud = DepthtoCloud(allInfo.depImg);
+
 % accumulate features
 combFeat = getCombinedFeatures(allInfo, sc);
 
