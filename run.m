@@ -49,6 +49,9 @@ pid = int16(feature('getpid'));
 %parpool(4);
 %parfor k = 1:length(images), 4
 for k = 1:length(images)
+    if k <= 40
+        continue;
+    end
     clearvars -except pid fid tStart filesCount ShowImages opt thOptions images k scaleImage MethodType methods i allInfo rgbd_data rgb normal pcloud imageName ptCloudSingle multiplicador multiplicadores multiplicador2 multiplicadores2; 
     imageRgb = images(k);
     display(strcat('Processing image ', imageRgb.name));
@@ -65,19 +68,25 @@ for k = 1:length(images)
     imageDepthOriginal = imread(strcat(datasetPath, '/depth/', depthFileName));
 
     if datasetName == "active_vision" || datasetName == "putkk"
-        imageRgbOriginal = imcrop(imageRgbOriginal, [420 1 1079 1080]);
-        imageDepthOriginal = imcrop(imageDepthOriginal, [420 1 1079 1080]);
+        imageRgbOriginal = imcrop(imageRgbOriginal, [240 1 1439 1080]);
+        imageDepthOriginal = imcrop(imageDepthOriginal, [240 1 1439 1080]);
     end
 
-    rgb = imresize(imageRgbOriginal, size(imageRgbOriginal(:,:,1))/scaleImage); 
-    depth = imresize(imageDepthOriginal, size(imageDepthOriginal(:,:,1))/scaleImage);
+    rgb = imresize(imageRgbOriginal, size(imageRgbOriginal(:,:,1))/scaleImage, 'nearest'); 
+    depth = imresize(imageDepthOriginal, size(imageDepthOriginal(:,:,1))/scaleImage, 'nearest');
         
     %depthDouble=double(depth)/1000;
     depthDouble=im2double(depth);
-    
-    topleft = [1 1];
-    center = [953 531];
-    focal = 1078.7;    
+        
+    if datasetName == "active_vision" || datasetName == "putkk"
+        topleft = [0 0];
+        center = [953 531];
+        focal = 1078.7;    
+    else
+        topleft = [0 0];
+        center = [540 540];
+        focal = 759.681;    
+    end
 
     [pcloud, distance] = DepthtoCloud(depthDouble, topleft, center, focal);    
     ptCloud = pointCloud(pcloud);
@@ -115,11 +124,11 @@ for k = 1:length(images)
     end    
     
     imwrite(segres, strcat('results/', datasetName, '/', depthFileName));
-    imwrite(normal, strcat('results/', datasetName, '/', imageName, '_normals.png'));
-    pcwrite(ptCloudSingle, strcat('results/', datasetName, '/', imageName, '.pcd'))
+    %imwrite(normal, strcat('results/', datasetName, '/', imageName, '_normals.png'));
+    %pcwrite(ptCloudSingle, strcat('results/', datasetName, '/', imageName, '.pcd'))
     filesCount = filesCount + 1;
 
-    display(strcat('Processed image ', num2str(filesCount)));
+    display(strcat('Processed image ', num2str(k)));
 end
 
 tEnd = datetime('now');
