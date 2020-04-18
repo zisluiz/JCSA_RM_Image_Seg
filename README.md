@@ -1,4 +1,16 @@
-# JCSA-RM RGBD Image Segmentation and Analysis Method [1,2,3]
+# JCSA-RM - Changes on this repository
+
+Added a run.py file that uses JCSA-RM prediction over a dataset named "mestrado", subdivided into four sets.
+This file also collect some statistics at run.
+
+Added "features" folder from source code obtained from https://homes.cs.washington.edu/~xren/. Used to generate point clouds and normals from dataset "mestrado". Reference:
+Xiaofeng Ren, Liefeng Bo, Dieter Fox
+    RGB-(D) Scene Labeling: Features and Algorithms
+    IEEE Conference on Computer Vision and Pattern Recognition (CVPR), June, 2012.
+
+Results obtained with "mestrado" dataset will be public available soon, comparing this approach with others semantic sgmentation algorithms.     
+
+# Original readme - JCSA-RM RGBD Image Segmentation and Analysis Method [1,2,3]
 Repository for the source code of MATLAB implementation of the "RGB-D image Segmentation using the Joint Color-Spatial-Axial clustering and Region Merging (JCSA-RM)" method.
 
 - The JCSA-RM method is an RGB-D (joint color+depth) image segmentation method. This repo provides demos with/without a GUI with MATLAB code to perform the following tasks: <br>
